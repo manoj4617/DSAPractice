@@ -3,14 +3,24 @@
 
 using namespace std;
 
-void array_rearrange(int *a, int n){
-    int arr[n],i=0,k=0,l=n-1;
-    while(i < n){
-        arr[i] = *a + k;
-        arr[++i] = *a + l;
+void array_rearrange(int a[], int n){
+    long long m = a[n-1];
+    m++;
+    int back = n-1, front = 0;
 
-        k++;
-        l--;
+    for(int i=0;i<n;++i){
+        if(i%2 == 0){
+            long long v = a[back--] % m;
+            a[i] += m*v;
+        }
+        else{
+            long long v = a[front++] % m;
+            a[i] += m*v;
+        }
+    }
+
+    for(int i=0;i<n;++i){
+        cout << a[i] / m << " ";
     }
 }
 
@@ -25,9 +35,6 @@ int main(){
     }
     sort(a,a+n);
     array_rearrange(a,n);
-    for(int i=0;i<n;++i){
-        cout << *a + i <<" ";
-    }
 
     return 0;
 }
