@@ -3,29 +3,7 @@
 
 using namespace std;
 
-void sorted_insert(Node* p, int val){
-    Node* t,*q = nullptr;
-    t = new Node;
-    t->data = val;
-    t->next = nullptr;
 
-    if(head == nullptr)
-        head = t;
-    else{
-        while(p && p->data < val){
-            q = p;
-            p = p->next;
-        }
-        if(p == head){
-            t->next = head;
-            head = t;
-        }
-        else{
-            t->next = q->next;
-            q->next = t;
-        }
-    }
-}
 
 int main(){
     // insert_last(10);
@@ -33,15 +11,20 @@ int main(){
     // insert_last(12);
     // insert_last(14);
     // insert_last(18);
-    cout<< "before inserting" << endl;
+    cout<< "before deleting" << endl;
     //display(head);
 
     sorted_insert(head,9);
     sorted_insert(head,17);
-    sorted_insert(head,10);
-
-
-    cout << "after inserting" << endl;
+    sorted_insert(head,12);
+    sorted_insert(head,18);
+    sorted_insert(head,19);
+    sorted_insert(head,20);
+    display(head);
+    cout << endl;
+    //cout << "deleted element " << delete_from_first(head)<<endl;
+    cout << "deleted element " << delete_from_anywhere(head,4)<<endl;
+    cout << "after delete" << endl;
     display(head);
     return 0;
 }
