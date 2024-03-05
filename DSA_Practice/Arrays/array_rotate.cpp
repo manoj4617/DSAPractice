@@ -60,12 +60,9 @@ using namespace std;
 // }
 
 /****************** approach-4 reversing ****************************/
-void reverse_array(vector<int> arr, int start, int end){
-    int temp;
+void reverse_array(vector<int>& arr, int start, int end){
     while(start < end){
-        temp = arr[start];
-        arr[start] = arr[end];
-        arr[end] = temp;
+        std::swap(arr[start], arr[end]);
         start++;
         end--;
     }
@@ -76,17 +73,11 @@ void rotate_array(vector<int> arr,int d){
 
     d = d%arr.size();
 
+    reverse_array(arr,0,arr.size()-1);
     reverse_array(arr,0,d-1);
     reverse_array(arr,d,arr.size()-1);
-    reverse_array(arr,0,arr.size()-1);
 }
 
-void PrintTheArray(vector<int> arr)
-{
-    for (auto i : arr) {
-        cout << i << " ";
-    }
-}
 
 
 int main(){
@@ -100,6 +91,8 @@ int main(){
     }
 
     rotate_array(A,d);
-    PrintTheArray(A);
+    for (int num : A) {
+        std::cout << num << " ";
+    }
     return 0;
 }

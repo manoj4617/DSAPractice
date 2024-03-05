@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include<algorithm>
 using namespace std;
 
 int main(){
@@ -23,7 +23,7 @@ int main(){
             }
         }
         if(count > 1){
-            cout<<A[i]<<" repeated "<<count<<" times";
+            cout<<A[i]<< endl;
         }
     }
 
