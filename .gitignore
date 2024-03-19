@@ -1,0 +1,11 @@
+*.exe
+.vscode
+*.o
+*.sh
+*.sqlite
+*.s
+*.suo
+*.json
+*.db
+*.ipch
+*.txt
