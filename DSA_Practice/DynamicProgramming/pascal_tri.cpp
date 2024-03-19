@@ -16,7 +16,7 @@ vector<int> pascal_triangle(int num_rows){
         for(int i=0;i<p_tri[num_rows].size();++i){
             res.push_back(p_tri[num_rows][i]);
         }
-        return res;
+        //return res;
     return res;
 }
 

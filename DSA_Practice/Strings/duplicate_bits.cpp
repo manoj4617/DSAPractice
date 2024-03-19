@@ -10,7 +10,7 @@ int main(){
     
     transform(str.begin(), str.end(), str.begin(), ::tolower);
 
-    for(int i=0;i<str.length();++i){
+    for(uint8_t i=0;i<str.length();++i){
         x = 1;
         x = x << ((int)str[i] - 97); 
 

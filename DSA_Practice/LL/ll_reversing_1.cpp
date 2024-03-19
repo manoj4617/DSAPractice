@@ -25,6 +25,9 @@ int main(){
     insert_last(9);
     insert_last(1);
     insert_last(5);
+    insert_last(15);
+    insert_last(25);
+
     display(head);
     cout << endl;
 
