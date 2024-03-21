@@ -11,32 +11,30 @@ int expand_palindrome(string s, int left , int right){
     return right - left - 1;
 }
 
-string longestPalindrome(string s){
-    int max_len = 1;
-    int start = 0;
-    for(int i=1;i<s.length();++i){
-        bool even = false;
-        int len2 = 0;
-        int len1 = 0;
+string longestPalindrome(string s) {
+    // This function finds the longest palindromic substring in the given string.
+    // Time complexity: O(n^2), where n is the length of the input string.
+    // Space complexity: O(1).
 
-        if(s[i-1] == s[i]){
-            len2 = expand_palindrome(s, i - 1, i);
-            even = true;
-        }
-        else{
-            len1 = expand_palindrome(s, i, i);
-        }
-        int len = max(len1, len2);
-        if(len > max_len){
-            max_len = len;
-            if(even){
-                start = (i-1) - (max_len - 1)/2; 
-            }else{
-                start = i - max_len/2;
-            }
+    int max_len = 1;  // The maximum length of the palindromic substring found so far.
+    int start = 0;   // The starting index of the longest palindromic substring.
+
+    for (int i = 0; i < s.length(); ++i) {  // For each index in the string,
+        
+        int len2 = 0;  // The length of the palindromic substring centered at i and i+1.
+        int len1 = 0;  // The length of the palindromic substring centered at i and i.
+
+        len1 = expand_palindrome(s, i, i);  // Expand from the center (i, i) to the left and right.
+        len2 = expand_palindrome(s, i, i + 1);
+
+        int len = max(len1, len2);  // The maximum of the two lengths.
+
+        if (len > max_len) {  // If the current maximum is greater than the previous maximum,
+            max_len = len;  // Update the maximum length and starting index.
+            start = i - (max_len - 1) / 2;
         }
     }
-    return s.substr(start, max_len);
+    return s.substr(start, max_len);  // Return the substring corresponding to the maximum length.
 }
 
 int main(){
