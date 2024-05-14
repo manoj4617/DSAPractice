@@ -22,18 +22,18 @@ int longest_sub_str(string str) {
         if (mp[str[end]] > 1) { // if the current character has already occurred once
 
             while (mp[str[end]] > 1) { // keep reducing the count of the current character until it becomes 1
-                mp[str[end]]--;
+                mp[str[start]]--;
                 start++; // increment the start index
             }
         }
 
-        if (end - start > max_len) { // if the length of the current substring is greater than the maximum length seen so far
-            max_len = end - start; // update the maximum length
+        if (end - start + 1 > max_len) { // if the length of the current substring is greater than the maximum length seen so far
+            max_len = end - start + 1; // update the maximum length
         }
         end++; // increment the end index
     }
 
-    return max_len + 1; // return the maximum length + 1
+    return max_len; // return the maximum length + 1
 }
 
 int main(){

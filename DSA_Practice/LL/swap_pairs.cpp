@@ -17,7 +17,7 @@ Node* swap_pairs(Node *head){
     // Create a dummy node to act as a placeholder for the actual head of the list.
     // This is necessary because we need to maintain the reference to the actual head node
     // so that we can return it at the end of the function.
-    Node *dummy = new Node(0);
+    Node *dummy = new Node();
     dummy->next = head;
     Node *p = dummy;
 
@@ -58,6 +58,8 @@ int main(){
     insert_last(3);
     insert_last(4);
     insert_last(5);
+    insert_last(6);
+
 
     display(head);
     swap_pairs(head);
