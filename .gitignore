@@ -1,5 +1,4 @@
 *.exe
-.vscode
 *.o
 *.sh
 *.sqlite
@@ -23,3 +22,5 @@
 *.sqlite
 *.txt
 *.ipch
+*.wsuo
+*.vsidx
