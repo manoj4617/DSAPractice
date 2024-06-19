@@ -63,7 +63,7 @@ int main(){
     insert_last(1);
     insert_last(5);
     display(head);
-    head = swap_nodes(head, 1);
+    head = swap_nodes(head, 0);
     cout << "\n";
     display(head);
     return 0;

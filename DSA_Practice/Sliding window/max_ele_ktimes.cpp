@@ -9,7 +9,8 @@ using namespace std;
 // The function then starts two pointers, start and end, at the beginning and end of the array respectively.
 // The function then iterates through the array until end reaches the end of the array.
 // For each iteration, if the element at end is equal to the maximum element, the function increments a count of the number of elements equal to the maximum element.
-// If the count is equal to k, the function decrements the count by iterating through the array from start to end, and for each element equal to the maximum element, the function decrements the count. The function then advances start by 1.
+// If the count is equal to k, the function decrements the count by iterating through the array from start to end, and for each element equal to the maximum element, 
+//the function decrements the count. The function then advances start by 1.
 // The function then calculates the number of subarrays with exactly k elements equal to the maximum element by adding the value of start to a running total of subarrays.
 // The function returns the number of subarrays.
 long long countSubarrays(vector<int>& nums, int k) {
