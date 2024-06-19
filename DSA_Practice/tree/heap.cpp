@@ -39,17 +39,32 @@ MaxHeap::MaxHeap(int maxsize){
     heap = vector<int>(maxsize);
 }
 
+/**
+ * This function inserts a new key into the heap.
+ * 
+ * @param k The key to be inserted.
+ */
 void MaxHeap::insert_key(int k){
+    // Check if the heap is already full.
     if(heap.size() > max_size){
+        // If the heap is full, print an overflow message and return.
         cout<<"Overflow"<<endl;
         return;
     }
 
+    // Get the index of the last element in the heap.
     int i = heap.size();
+    
+    // Add the new key to the end of the heap.
     heap.push_back(k);
 
+    // Start from the last element and keep swapping the element with its parent
+    // until the heap property is satisfied.
     while(i != 0 && heap[parent(i)] < heap[i]){
+        // Swap the element at index i with its parent.
         swap(heap[i], heap[parent(i)]);
+        
+        // Move up one level in the heap.
         i = parent(i);
     }
 }
