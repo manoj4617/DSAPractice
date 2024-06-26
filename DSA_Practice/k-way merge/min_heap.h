@@ -3,14 +3,14 @@
 
 using namespace std;
 
-class MaxHeap{
+class MinHeap{
 
     vector<int> heap;
     int max_size;
     
 public:
-    MaxHeap(int maxSize);
-    void MaxHeapify(int);
+    MinHeap(int maxSize);
+    void MinHeapify(int);
 
     int parent(int i){
         return (i-1)/2;
@@ -34,7 +34,7 @@ public:
     void insert_key(int k);
 };
 
-MaxHeap::MaxHeap(int maxsize){
+MinHeap::MinHeap(int maxsize){
     max_size = maxsize;
     heap = vector<int>();
 }
@@ -44,7 +44,7 @@ MaxHeap::MaxHeap(int maxsize){
  * 
  * @param k The key to be inserted.
  */
-void MaxHeap::insert_key(int k){
+void MinHeap::insert_key(int k){
     // Check if the heap is already full.
     if(heap.size() > max_size){
         // If the heap is full, print an overflow message and return.
@@ -60,7 +60,7 @@ void MaxHeap::insert_key(int k){
 
     // Start from the last element and keep swapping the element with its parent
     // until the heap property is satisfied.
-    while(i != 0 && heap[parent(i)] < heap[i]){
+    while(i != 0 && heap[parent(i)] > heap[i]){
         // Swap the element at index i with its parent.
         swap(heap[i], heap[parent(i)]);
         
@@ -70,9 +70,9 @@ void MaxHeap::insert_key(int k){
 }
 
 
-void MaxHeap::increase_key(int i, int newVal){
+void MinHeap::increase_key(int i, int newVal){
     heap[i] = newVal;
-    while(i != 0 && heap[parent(i)] < heap[i]){
+    while(i != 0 && heap[parent(i)] > heap[i]){
         swap(heap[i], heap[parent(i)]);
         i = parent(i);
     }
@@ -83,7 +83,7 @@ void MaxHeap::increase_key(int i, int newVal){
  * 
  * @return The maximum element in the heap.
  */
-int MaxHeap::remove_max(){
+int MinHeap::remove_max(){
     // If the heap is empty, return the minimum possible value.
     if(heap.size() == 0){
         return INT_MIN;
@@ -104,14 +104,14 @@ int MaxHeap::remove_max(){
     // Remove the last element from the heap.
     heap.pop_back();
 
-    // Restore the heap property by calling the MaxHeapify function on the root element.
-    MaxHeapify(0);
+    // Restore the heap property by calling the MinHeapify function on the root element.
+    MinHeapify(0);
 
     // Return the value of the root element.
     return root;
 }
 
-void MaxHeap::delete_key(int i){
+void MinHeap::delete_key(int i){
     increase_key(i, INT_MAX);
     remove_max();
 }
@@ -137,26 +137,26 @@ void MaxHeap::delete_key(int i){
  * 
  * Time complexity: O(log n) in the worst case, where n is the number of elements in the heap.
  */
-void MaxHeap::MaxHeapify(int i){
+void MinHeap::MinHeapify(int i){
     // Find the indices of the left and right children of node i
     int left = left_child(i);
     int right = right_child(i);
 
     // Determine which of the two children (if any) has the larger value
-    int large = i;
-    if(left < heap.size() && heap[left] > heap[i]){
-        large = left;
+    int small = i;
+    if(left < heap.size() && heap[left] < heap[i]){
+        small = left;
     }
-    if(right < heap.size() && heap[right] > heap[large]){
-        large = right;
+    if(right < heap.size() && heap[right] < heap[small]){
+        small = right;
     }
 
     // If the value of the child is larger than the value of node i,
     // then swap the values of the two nodes and recursively call
     // the function on the index of the child that was swapped.
-    if(large != i){
-        swap(heap[i], heap[large]);
-        MaxHeapify(large);
+    if(small != i){
+        swap(heap[i], heap[small]);
+        MinHeapify(small);
     }
     else {
         return;
@@ -164,46 +164,3 @@ void MaxHeap::MaxHeapify(int i){
 }
 
 
-int main() 
-{ 
-    // Assuming the maximum size of the heap to be 15. 
-    MaxHeap h(15); 
-  
-    // Asking the user to input the keys: 
-    int k, i, n = 6, arr[10]; 
-    cout << "Entered 6 keys:- 3, 10, 12, 8, 2, 14 \n"; 
-    h.insert_key(3); 
-    h.insert_key(10); 
-    h.insert_key(12); 
-    h.insert_key(8); 
-    h.insert_key(2); 
-    h.insert_key(14); 
-  
-    // Printing the current size 
-    // of the heap. 
-    cout << "The current size of the heap is "
-         << h.cur_size() << "\n";
-  
-    // Printing the root element which is 
-    // actually the maximum element. 
-    cout << "The current maximum element is " << h.get_max() 
-         << "\n"; 
-  
-    // Deleting key at index 2. 
-    h.delete_key(2); 
-  
-    // Printing the size of the heap 
-    // after deletion. 
-    cout << "The current size of the heap is "
-         << h.cur_size() << "\n"; 
-  
-    // Inserting 2 new keys into the heap. 
-    h.insert_key(15); 
-    h.insert_key(5); 
-    cout << "The current size of the heap is "
-         << h.cur_size() << "\n"; 
-    cout << "The current maximum element is " << h.get_max() 
-         << "\n"; 
-  
-    return 0; 
-}
