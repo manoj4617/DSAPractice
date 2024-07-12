@@ -33,5 +33,5 @@ class Graph{
         void DFS_using_stack(int startingVertex);
         void DFS_using_recurssion(std::vector<bool> visited, int neighbor);
 
-        void BFS_using_queue(int startingVertex);
+        void BFS_using_queue(int startingVertex, int endingVertex);
 };

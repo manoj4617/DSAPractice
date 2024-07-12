@@ -12,7 +12,7 @@ void Graph::DFS_using_stack(int startingVertex){
     int currentVertex = st.top();                   //get the top element of the stack
     st.pop();                                       //pop the top element
     if(!visited[currentVertex]){                    //check if the current element is visited or not  
-      std::cout << currentVertex << " ";          
+      std::cout << currentVertex << " ";
       visited[currentVertex] = true;
       for(const auto &v : adjList[currentVertex]){  //if not visited then add all its neighbours to the stack
         if(!visited[v]){
@@ -24,6 +24,8 @@ void Graph::DFS_using_stack(int startingVertex){
 }
 
 void Graph::DFS_using_recurssion(std::vector<bool>  visited, int vertex){
+  if(visited[vertex])
+    return;
   visited[vertex] = true;
   std::cout << vertex << " ";
   for(const auto &node : adjList[vertex]){
