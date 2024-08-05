@@ -40,6 +40,7 @@ LinkedListNode* kMerge(LinkedListNode* list1, LinkedListNode* list2){
             prv->next = list2;
             list2 = list2->next;
         }
+        prv = prv->next;
     }
 
     // If one of the linked lists is empty, move the remaining nodes of the other linked list to the merged list.
@@ -72,14 +73,14 @@ LinkedListNode* MergeLists(std::vector<LinkedList*> lists){
         int step = 1; // Initialize the step size
 
         while(step < lists.size()){ // Loop until all the linked lists are merged
-            for(int i=0; i < lists.size(); i = i + 2 * step){ // Merge linked lists in pairs
+            for(int i=0; i < lists.size() - step; i = i +(step * 2)){ // Merge linked lists in pairs
                 lists[i]->head = kMerge(lists[i]->head, lists[i+step]->head); // Merge the linked lists and assign the merged list to the head of the corresponding LinkedList
             }
             step  *= 2; // Increase the step size by multiplying by 2
         }
+        return lists[0]->head; // Return nullptr since the merged list is stored in the LinkedList pointers
     }
-
-    return nullptr; // Return nullptr since the merged list is stored in the LinkedList pointers
+    return nullptr;
 }
 
 int main(){
