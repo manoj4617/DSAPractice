@@ -10,14 +10,14 @@ int main(){
     
     transform(str.begin(), str.end(), str.begin(), ::tolower);
 
-    for(uint8_t i=0;i<str.length();++i){
+    for(int i=0;i<str.length();++i){
         x = 1;
         x = x << ((int)str[i] - 97); 
 
         if((x & H) > 0){    // Mask and check for duplicate bits
             cout << str[i];
         }else{
-            H = H | x;      // Merge to set the bit 
+            H |= x;      // Merge to set the bit 
         }
     }
 

@@ -63,7 +63,7 @@ class PriorityQueue  {
                 return;
             }
 
-            auto it = std::find_if(heap.begin(), heap.end(), [&](const std::pair<T, int>& element){
+            auto it = std::find_if(heap.begin(), heap.end(), [&](const std::pair<T, int>& element) -> bool{
                 return element.first == value;
             });
 

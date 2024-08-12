@@ -39,7 +39,7 @@ void displayRecurssive(struct Node *p){
 }
 
 int findMax(struct Node* p){
-    int max = INT16_MIN;
+    int max = INT_MIN;
 
     while(p){
         if(p->data > max){
@@ -54,7 +54,7 @@ int findMaxRecurssive(struct Node* p){
     int x = 0;
 
     if(p == 0)
-        return INT16_MIN;
+        return INT_MIN;
     
     x = findMaxRecurssive(p->next);
     return x > p->data ? x : p->data;
