@@ -26,16 +26,18 @@ float calculate_size(int p, int q){
 vector<vector<int>> KthNearest(vector<vector<int>> points, int k)
 {
     // If k is less than or equal to 0 or the points vector is empty, return an empty vector
+    int i;
     if (k <= 0 || points.empty())
     {
-        return {};
+        return {{}};
     }
 
     // Create a priority queue to store the points and their distances from the origin
     priority_queue<pair<float, pair<int, int>>, vector<pair<float, pair<int, int>>>, greater<pair<float, pair<int, int>>>> pq;
 
     // Initialize the priority queue with the first k points from the points vector
-    for (int i = 0; i < min(k, static_cast<int>(points.size())); i++)
+    int n = k <= points.size() ? k : points.size();
+    for (i = 0; i < n; i++)
     {
         // Calculate the distance between each point and the origin
         float d = calculate_size(points[i][0], points[i][1]);
@@ -52,14 +54,14 @@ vector<vector<int>> KthNearest(vector<vector<int>> points, int k)
         if (!points.empty())
         {
             // Calculate the distance between the first point and the origin
-            float dist = calculate_size(points[0][0], points[0][1]);
+            float dist = calculate_size(points[i][0], points[i][1]);
             // If the distance is less than the distance of the closest point in the priority queue
             if (dist < pq.top().first)
             {
                 // Remove the closest point from the priority queue
                 pq.pop();
                 // Add the new point and its distance to the priority queue
-                pq.push({dist, {points[0][0], points[0][1]}});
+                pq.push({dist, {points[i][0], points[i][1]}});
             }
         }
     }
@@ -80,8 +82,8 @@ vector<vector<int>> KthNearest(vector<vector<int>> points, int k)
 }
 
 int main(){
-    vector<vector<int>> points = {{1, 3}, {-2, 2}};
-    int k = 1;
+    vector<vector<int>> points = {{1, 3}, {-2, 2}, {0,1},{1,1}};
+    int k = 2;
     vector<vector<int>> res = KthNearest(points, k);
     for(int i=0;i<res.size();i++){
         cout<<res[i][0]<<" "<<res[i][1]<<endl;
