@@ -85,7 +85,7 @@ void Print2dvec(vector<vector<int>> vec){
 
 int main(){
 
-    std::vector<std::vector<int>> inputs = {{},{2, 5, 7}, {1, 2, 3, 4}, {7, 3, 1, 5}};
+    std::vector<std::vector<int>> inputs = {{1,2,3},{2, 5, 7}, {1, 2, 3, 4}, {7, 3, 1, 5}};
         for (int i = 0; i < inputs.size(); i++) {
             std::vector<int> v = inputs[i];
             std::vector<std::vector<int>> subs;
