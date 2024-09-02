@@ -1,71 +1,75 @@
 #include <iostream>
 #include <vector>
-#include <queue>
 
 using namespace std;
-
-struct Coordinates {
-    int x;
-    int y;
-};
-int next_row[] = {-1,1,0,0};    // Up, Down, No move, No move
-int next_col[] = {0, 0, -1, 1}; // No move, No move, Left, Right
-
-queue<Coordinates> q;
-vector<vector<int>> visited;
-vector<vector<Coordinates>> parent;
-vector<vector<char>> grid;
-void explore_next(int x , int y, int max_row, int max_col, string& str, int idx){
-    int new_row;
-    int new_col;
-
-    for(int i=0;i<4;++i){
-        new_row = x + next_row[i];
-        new_col = y + next_col[i];
-
-        if(new_row < 0 || new_col < 0 || new_col >= max_col || new_row >= max_row){
-            continue;
-        }
-        if(visited[new_row][new_col] == 1 && grid[new_row][new_col] != str[idx]){
-            continue;
-        }
-        q.push({new_row, new_col});
-        visited[new_row][new_col] = 1;
-        parent[new_row][new_col] = {x, y};
+/**
+ * A helper function to perform a depth first search to check if a word can be
+ * formed from a given grid of characters.
+ *
+ * @param row The row index of the current cell being explored.
+ * @param col The column index of the current cell being explored.
+ * @param word The word to be searched for in the grid.
+ * @param idx The current index of the word being searched for.
+ * @param grid A 2D vector of characters representing the grid.
+ * @return True if the word can be formed from the characters in the grid,
+ *         false otherwise.
+ */
+bool DFS(int row, int col, string word, int idx, vector<vector<char>>& grid){
+    /**
+     * Base case: if we have explored the entire word, return true.
+     */
+    if(word.length() == idx){
+        return true;
     }
+
+    /**
+     * Check if the current cell is a valid cell to explore. If it is out of
+     * bounds, or its character does not match the current character of the word,
+     * return false.
+     */
+    if(row < 0 || row >= grid.size() || col < 0 || col >= grid[0].size() ||
+       grid[row][col] != word[idx]){
+        return false;
+    }
+
+    /**
+     * Mark the current cell as visited by setting its character to '*'. This
+     * is done to avoid revisiting the same cell multiple times.
+     */
+    grid[row][col] = '*';
+
+    /**
+     * Explore all four directions from the current cell. For each direction, if
+     * the word can be formed from the characters in that direction, return true.
+     */
+    vector<vector<int>> offsets{{0,1},{1,0},{0,-1},{-1,0}};
+    for(auto offset : offsets){
+        int new_row = row + offset[0];
+        int new_col = col + offset[1];
+
+        if(DFS(new_row, new_col, word,idx + 1,grid)){
+            return true;
+        }
+    }
+
+    /**
+     * If no valid direction is found, unmark the current cell as visited and
+     * return false.
+     */
+    grid[row][col] = word[0];
+    return false;
 }
 
-bool WordSearch(vector<vector<char>>& grid, string& str){
-    int row = grid.size();
-    int col = grid[0].size();
-    visited = vector<vector<int>>(row, vector<int>(col,0));
-    parent  = vector<vector<Coordinates>>(row, vector<Coordinates>(col, {-1,-1}));
-
-    for(int i=0;i<row;++i){
-        for(int j=0;j<col;++j){
-            if(grid[i][j] == str[0]){
-                visited[i][j] = 1;
-                q.push({i,j});
-                int i = 1;
-
-                while(!q.empty()){
-                    Coordinates next = q.front();
-                    q.pop();
-                    if(grid[next.x][next.y] == str.back()){
-                        return true;
-                    }
-                    explore_next(next.x, next.y, row, col, str,i++);
-                }
-                if(i == str.size()){
-                    return true;
-                }
+bool WordSearch(vector<vector<char>> grid, string word){
+    for(int i=0;i<grid.size();++i){
+        for(int j=0;j<grid[0].size();++j){
+            if(DFS(i,j,word,0,grid)){
+                return true;
             }
         }
     }
-
-
-    return false;
 }
+
 
 int main(){
     string str;
@@ -78,7 +82,7 @@ int main(){
         {'O','I','T','N','C'},
     };
 
-    int res = WordSearch(grid,str);
+    bool res = WordSearch(grid,str);
     cout << res;
     return 0;
 }
