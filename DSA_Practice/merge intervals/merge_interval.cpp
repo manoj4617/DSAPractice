@@ -1,63 +1,56 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+using namespace std;
 
+/**
+ * This function takes in a vector of intervals, each represented as a vector of size 2.
+ * The function returns a new vector of merged intervals, where overlapping intervals are merged
+ * into a single interval.
+ *
+ * The idea of the algorithm is to first sort the intervals by their start times.
+ * Then, we iterate through the sorted intervals. For each interval, we check if it overlaps with
+ * the last interval in the result vector. If it does, we merge the two intervals by updating the
+ * end time of the last interval in the result vector to be the maximum of its current end time
+ * and the end time of the current interval. If it does not overlap, we add it to the result vector.
+ *
+ */
 std::vector<std::vector<int>> MergeIntervals(std::vector<std::vector<int>> &intervals)
 {
-    // This function takes in a vector of intervals, each represented as a vector of size 2,
-    // where the first element is the start of the interval and the second element is the end.
-    // The function merges overlapping intervals and returns the merged intervals in a new vector.
-    //
-    // For example:
-    // If the input is {{1, 3}, {2, 6}, {8, 10}, {15, 18}}
-    // the output will be {{1, 6}, {8, 10}, {15, 18}}
-    //
-    // The main idea of the algorithm is to keep track of the last merged interval and compare it with
-    // the current interval. If the current interval overlaps with the last merged interval, we merge them
-    // into a single interval and add it to the result. Otherwise, we simply add the current interval to the
-    // result.
-    //
-    // The function starts by initializing an empty result vector and adding the first interval to it.
+        // Sort the intervals by their start times
+        sort(intervals.begin(),intervals.end(),
+        [](const vector<int>& a, const vector<int>& b)-> bool{
+            // Compare the start times of the two intervals
+            return a[0] < b[0];
+        });
 
-    std::vector<std::vector<int>> result;
+        // Initialize the result vector with the first interval
+        vector<vector<int>> result;
+        result.push_back({intervals[0][0], intervals[0][1]});
 
-    result.push_back({intervals[0][0], intervals[0][1]});
+        // Iterate through the intervals starting from the second interval
+        for(int i = 1; i < intervals.size(); i++){
+            int curStart = intervals[i][0];
+            int curEnd = intervals[i][1];
 
-    // Then, it iterates over the rest of the intervals
-    for(int i=1;i<intervals.size();i++){
+            // Get the last interval in t he result vector
+            vector<int> lastInterval = result.back();
+            int prvEnd = lastInterval[1];
 
-        // We get the start and end of the current interval being processed
-        int curStart = intervals[i][0];
-        int curEnd = intervals[i][1];
-
-        // We get a reference to the last merged interval in the result
-        std::vector<int> lastInterval = result.back();
-
-        // We get the end of the last merged interval
-        int prevEnd = lastInterval[1];
-
-        // If the current interval overlaps with the last merged interval,
-        if(curEnd <= prevEnd){
-
-            // we merge them into a single interval by taking the max of their ends
-            lastInterval[1] = std::max(curEnd, prevEnd);
-
-            // We remove the last merged interval from the result
-            result.pop_back();
-
-            // And we add the new merged interval to the result
-            result.push_back(lastInterval);
-
+            // Check if the current interval overlaps with the last interval in the result vector
+            if(curStart <= prvEnd){
+                // Merge the two intervals by updating the end time of the last interval
+                lastInterval[1] = max(curEnd, prvEnd);
+                // Remove the last interval from the result vector and add the merged interval back
+                result.pop_back();
+                result.push_back(lastInterval);
+            }
+            else{
+                // Add the current interval to the result vector
+                result.push_back({curStart, curEnd});
+            }
         }
-        else{
-
-            // If the current interval does not overlap with the last merged interval,
-            // we simply add it to the result
-            result.push_back({curStart, curEnd});
-        }
-
-    }
-    return result;
+        return result;
 }
 
 int main(){

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
 /**
@@ -23,10 +23,10 @@ int BinarySearchRotated(vector<int>& nums, int target)
         int mid = low + (high - low) / 2;
         
         //To handle duplicates
-        if(nums[low] == nums[mid] && nums[high] == nums[mid]){
-            low++;
-            high--;
-        }
+        // if(nums[low] == nums[mid] && nums[high] == nums[mid]){
+        //     low++;
+        //     high--;
+        // }
 
         // If the middle element is equal to the target, return its index.
         if(nums[mid] == target){
@@ -92,6 +92,7 @@ int main(){
         cin >> temp;
         nums.push_back(temp);
     }
+    sort(nums.begin(), nums.end());
     int k;
     cin >> k;
 
