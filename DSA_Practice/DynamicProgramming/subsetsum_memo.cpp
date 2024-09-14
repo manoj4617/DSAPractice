@@ -3,7 +3,7 @@
 #include <string.h>
 using namespace std;
 
-int t[2000][2000];
+int t[2000][2000] = {-1};
 /**
  * This function checks if there exists a subset of the given set of integers
  * which sums up to the given target number. It uses memoization to store the
