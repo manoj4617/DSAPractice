@@ -31,7 +31,7 @@ class Derived : public Base {
 };
 
 int main(){
-    Derived* base = new Derived;
+    Base* base = new Derived;
     delete base;
 }
 
