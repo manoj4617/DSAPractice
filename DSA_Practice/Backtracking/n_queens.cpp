@@ -42,6 +42,18 @@ bool isValidMove(int new_row, int new_col, vector<int>& solution){
             old_col == new_col - diagonal) {
             return false;
         }
+        // The reason we can use the difference between new_row and old_row
+        // to check if the new queen is on the same diagonal as the old queen
+        // is because the difference between the row indices is always equal
+        // to the difference between the column indices of two points on the
+        // same diagonal. For example, if the new queen is at (3, 3) and
+        // the old queen is at (1, 1), then the difference between the row
+        // indices is 2, which is the same as the difference between the
+        // column indices (3 - 1 = 2). This is true for all diagonals in
+        // an n x n chessboard. Therefore, if the difference between the
+        // row indices of the new and old queens is equal to the difference
+        // between their column indices, then the new queen is on the same
+        // diagonal as the old queen.
     }
     // If all the checks pass, the new queen can be placed at the given position
     return true;
