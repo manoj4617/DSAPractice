@@ -24,3 +24,5 @@
 *.ipch
 *.wsuo
 *.vsidx
+.vscode/
+*.dll

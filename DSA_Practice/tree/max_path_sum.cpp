@@ -19,6 +19,9 @@ int MaxSum = INT_MIN;
  * maximum path sum. Finally, it returns the value of the node plus the maximum
  * of the values returned by the recursive calls on the left and right
  * children.
+ *
+ * Note: This function handles the case if a node has a negative value or any
+ * subtree returning negative path sum by returning 0 in such cases.
  */
 int MaxSumPathHelper(Node* root){
     if(!root){
@@ -26,14 +29,8 @@ int MaxSumPathHelper(Node* root){
     }
 
     // Recursively call this function on the left and right children
-    int leftSum = 0;
-    int rightSum = 0;
-    if(MaxSumPathHelper(root->left_child) > 0){
-        leftSum = MaxSumPathHelper(root->left_child);
-    }
-    if(MaxSumPathHelper(root->right_child) > 0){
-        rightSum = MaxSumPathHelper(root->right_child);
-    }
+    int leftSum = max(MaxSumPathHelper(root->left_child),0);
+    int rightSum = max(MaxSumPathHelper(root->right_child),0);
 
     // Calculate the maximum path sum that can be obtained by traversing the
     // tree from the given node
@@ -42,8 +39,10 @@ int MaxSumPathHelper(Node* root){
     // than the maximum path sum obtained so far
     MaxSum = max(MaxSum, valMax);
 
-    // Return the value of the node plus the maximum of the values returned by
-    // the recursive calls on the left and right children
+    // If the value of the node plus the maximum of the values returned by the
+    // recursive calls on the left and right children is negative, return 0.
+    // Otherwise, return the value of the node plus the maximum of the values
+    // returned by the recursive calls on the left and right children.
     return root->data + max(leftSum, rightSum);
 }
 

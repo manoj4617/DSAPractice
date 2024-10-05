@@ -1,6 +1,8 @@
 #include "tree.h"
 
-// This function calculates the height of a binary tree and also calculates and returns the diameter of the tree.
+// The time complexity of this algorithm is O(n) where n is the number of nodes in the tree.
+// The space complexity of this algorithm is O(h) where h is the height of the tree.
+// This algorithm calculates the height of a binary tree and also calculates and returns the diameter of the tree.
 // The diameter of a tree is the maximum distance between any two nodes in the tree.
 // The diameter is used to evaluate the efficiency of the tree.
 // The function takes two parameters:
