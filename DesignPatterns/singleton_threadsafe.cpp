@@ -10,8 +10,8 @@ class Singleton {
     std::string _value;
 
     public:
-    Singleton(Singleton & other) = delete;
-    void operator=(Singleton &) = delete;
+    Singleton(Singleton& other) = delete;
+    void operator=(Singleton&) = delete;
     static Singleton* getInstance(const std::string &value);
 
     std::string value(){
@@ -27,9 +27,11 @@ Singleton* Singleton::_instance = nullptr;
 std::mutex Singleton::_mut;
 
 Singleton* Singleton::getInstance(const std::string &value){
-    std::lock_guard<std::mutex> lock(_mut);
-    if(_instance == nullptr){
-        _instance =  new Singleton(value);
+    if(!_instance){
+        std::lock_guard<std::mutex> lock(_mut);
+        if(_instance == nullptr){
+            _instance =  new Singleton(value);
+        }
     }
     return _instance;
 }

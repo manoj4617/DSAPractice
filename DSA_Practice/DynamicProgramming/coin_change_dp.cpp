@@ -80,7 +80,7 @@ int CoinChange(vector<int>& coins, int total){
     // money. If the value is equal to INT_MAX - 1, return -1 to indicate that
     // it is not possible to reach the total amount of money using the given
     // set of coins.
-    return t[n][total] == INT_MAX - 1 ? - 1 : t[n][total];
+    return t[n][total] == INT_MAX - 1 ? -1 : t[n][total];
 }
 
 /**
