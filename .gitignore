@@ -7,8 +7,7 @@
 *.json
 *.db
 *.ipch
-*.txt
-.vscode
+.vscode/
 *.exe
 *.ilk
 *.obj
@@ -20,7 +19,6 @@
 *.sh
 *.json
 *.sqlite
-*.txt
 *.ipch
 *.wsuo
 *.vsidx
