@@ -11,41 +11,46 @@ int MaxSum = INT_MIN;
  * maximum path sum is defined as the maximum sum of the values of all nodes
  * in a path from the given node to any other node in the tree.
  *
- * This function uses a recursive approach to find the maximum path sum. It
- * first checks if the node is null, and if so, returns 0. Then, it recursively
- * calls itself on the left and right children of the node and checks if the
- * sum of the values of the left and right children plus the value of the node
- * itself is greater than the current maximum path sum. If so, it updates the
- * maximum path sum. Finally, it returns the value of the node plus the maximum
- * of the values returned by the recursive calls on the left and right
- * children.
+ * This function uses a recursive approach to find the maximum path sum. The
+ * base case of the recursion is when the node is null, in which case the
+ * function returns 0.
  *
- * Note: This function handles the case if a node has a negative value or any
- * subtree returning negative path sum by returning 0 in such cases.
+ * Otherwise, the function recursively calls itself on the left and right
+ * children of the node. The result of the recursive call is the maximum path
+ * sum that can be obtained by traversing the subtree rooted at the left or
+ * right child. The maximum path sum is then updated by taking the maximum of
+ * the current maximum path sum and the sum of the value of the node itself and
+ * the result of the recursive call on the left and right children.
+ *
+ * The function also handles the case if a node has a negative value or any
+ * subtree returning negative path sum by returning 0 in such cases. This is
+ * done by taking the maximum of the result of the recursive call and 0.
+ *
+ * Finally, the function returns the value of the node plus the maximum of the
+ * values returned by the recursive calls on the left and right children. This
+ * is the maximum path sum that can be obtained by traversing the tree from the
+ * given node.
  */
-int MaxSumPathHelper(Node* root){
-    if(!root){
-        return 0;
-    }
+int dfs(Node* root, int& res){
+    // Base case: If the node is null, return 0
+    if(!root) return 0;
 
-    // Recursively call this function on the left and right children
-    int leftSum = max(MaxSumPathHelper(root->left_child),0);
-    int rightSum = max(MaxSumPathHelper(root->right_child),0);
+    // Recursively call the function on the left and right children of the node
+    int leftSum = max(dfs(root->left_child, res), 0);
+    int rightSum = max(dfs(root->right_child, res), 0);
 
-    // Calculate the maximum path sum that can be obtained by traversing the
-    // tree from the given node
-    int valMax = root->data + leftSum + rightSum;
-    // Update the maximum path sum if the current maximum path sum is greater
-    // than the maximum path sum obtained so far
-    MaxSum = max(MaxSum, valMax);
+    // Update the maximum path sum
+    res = max(res , root->data + leftSum + rightSum);
 
-    // If the value of the node plus the maximum of the values returned by the
-    // recursive calls on the left and right children is negative, return 0.
-    // Otherwise, return the value of the node plus the maximum of the values
-    // returned by the recursive calls on the left and right children.
-    return root->data + max(leftSum, rightSum);
+    // Return the value of the node plus the maximum of the values returned by
+    // the recursive calls on the left and right children
+    return root->data + max(leftSum , rightSum);
 }
-
+int MaxSumPathHelper(Node* root){
+    int res = root->data;
+    dfs(root, res);
+    return res;
+}
 
 /**
  * This function takes a node in a tree as an argument and returns the maximum
