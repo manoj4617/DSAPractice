@@ -17,6 +17,8 @@ class Base {
     virtual ~Base() {
         cout << "Base class destructor!!\n";
     }
+    virtual int save(int n) = 0;
+    virtual float save(int n, float k) = 0;
 };
 
 class Derived : public Base {
@@ -28,10 +30,20 @@ class Derived : public Base {
     ~Derived() {
         cout << "Derived class destructor!!\n";
     }
+
+    int save(int n) override {
+        cout << "int overriding\n";
+        return 0;
+    }
+    float save(int n, float k) override{
+        cout << "float overriding\n";
+        return 1.1F;
+    }
 };
 
 int main(){
     Base* base = new Derived;
+    base->save(9, 1.89);
     delete base;
 }
 
