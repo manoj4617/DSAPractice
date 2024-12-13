@@ -56,7 +56,7 @@ bool DFS(int row, int col, string word, int idx, vector<vector<char>>& grid){
      * If no valid direction is found, unmark the current cell as visited and
      * return false.
      */
-    grid[row][col] = word[0];
+    grid[row][col] = word[idx];
     return false;
 }
 
@@ -68,19 +68,15 @@ bool WordSearch(vector<vector<char>> grid, string word){
             }
         }
     }
+    return false;
 }
+
 
 
 int main(){
     string str;
     cin >> str;
-    vector<vector<char>> grid = {
-        {'N','W','L','I','M'},
-        {'V','I','L','Q','O'},
-        {'O','L','A','T','O'},
-        {'R','T','A','I','N'},
-        {'O','I','T','N','C'},
-    };
+    vector<vector<char>> grid = {{'A','B','C','D'},{'S','A','A','T'},{'A','C','A','E'}};
 
     bool res = WordSearch(grid,str);
     cout << res;

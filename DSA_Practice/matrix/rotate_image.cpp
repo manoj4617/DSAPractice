@@ -5,40 +5,18 @@
 using namespace std;
 
 /**
- * Rotate an image represented as a matrix 90 degrees clockwise.
+ * Rotate an image represented as a matrix 90 degrees clockwise using transpose
+ * and reverse methods.
  *
- * This algorithm works by looping through the matrix in a spiral fashion,
- * swapping the elements at each step.  This is done by looping through the
- * rows and columns of the matrix, starting from the top left and moving
- * right, then down, then left, then up.
+ * The transpose function works by swapping the elements of the matrix such that
+ * the element at position [i][j] is swapped with the element at position [j][i].
  *
- * At each step, the elements are swapped in the following order:
- *  - top left with top right
- *  - top right with bottom right
- *  - bottom right with bottom left
- *  - bottom left with top left
+ * The reverse function works by reversing the elements of each row in the
+ * matrix.
  *
- * This has the effect of rotating the matrix 90 degrees clockwise.
+ * By first transposing the matrix and then reversing each row, the matrix is
+ * rotated 90 degrees clockwise.
  */
-void rotate_matrix(vector<vector<int>>& mat){
-    int n = mat.size();
-
-    // loop through the matrix in a spiral fashion
-    for(int row = 0;row < n/2;row++){
-        for(int col = row; col < n - row - 1; col++){
-            // swap top left with top right
-            swap(mat[row][col], mat[col][n - 1 - row]);
-
-            // swap top right with bottom right
-            swap(mat[row][col], mat[n - 1 - row][n - 1 - col]);
-
-            // swap bottom right with bottom left
-            swap(mat[row][col], mat[n - 1 - col][row]);
-        }
-    }
-}
-
-
 void printMat(const vector<vector<int>>& mat){
     for(auto& r : mat){
         for(const int& c : r){
@@ -47,10 +25,33 @@ void printMat(const vector<vector<int>>& mat){
         cout << "\n";
     }
 }
+void transpose(vector<vector<int>>& mat){
+    int n = mat.size();
+    for(int i=0;i<n;i++){
+        for(int j=i;j<n;j++){
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+
+}
+void reverse(vector<vector<int>>& mat){
+    int n = mat.size();
+    for(int i=0;i<n;i++){
+        reverse(mat[i].begin(), mat[i].end());
+    }
+}
+
+void rotate_matrix(vector<vector<int>>& mat){
+    transpose(mat);
+    // printMat(mat);
+    reverse(mat);
+}
+
+
 
 int main(){
 
-    vector<vector<int>> matrix = {{6, 9}, {2, 7}};
+    vector<vector<int>> matrix = {{1,2,3},{4,5,6},{7,8,9}};
     printMat(matrix);
     cout << "\n";
     rotate_matrix(matrix);
