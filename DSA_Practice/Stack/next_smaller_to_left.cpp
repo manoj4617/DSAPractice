@@ -30,7 +30,7 @@ using namespace std;
  * found that is smaller than the current element, the function pushes that
  * element onto the result vector.
  */
-vector<int> nect_smaller_to_left(vector<int>& nums){
+vector<int> next_smaller_to_left(vector<int>& nums){
     int len = nums.size();
     vector<int> res;
     stack<int> st;
@@ -84,7 +84,7 @@ int main(){
         cin >> nums[i];
     }
 
-    vector<int> res = nect_smaller_to_left(nums);
+    vector<int> res = next_smaller_to_left(nums);
     for(int &i : res){
         cout << i << " ";
     }
