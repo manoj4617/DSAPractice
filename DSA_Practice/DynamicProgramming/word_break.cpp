@@ -54,6 +54,65 @@ bool wordBreak(const string& str, const vector<string>& dict){
     }
     return dp[n];
 }
+
+/**
+ * This function takes a string s and a vector of strings wordDict as input and
+ * returns true if the string s can be broken down into a sequence of words
+ * contained in the dictionary wordDict, and false otherwise.
+ *
+ * The function first creates a boolean vector dp of size s.size() + 1, and
+ * initializes all the elements of the vector to false except for the last
+ * element, which is set to true.
+ *
+ * The function then iterates over the string s from right to left, and for each
+ * index i of the string, it iterates over each word in the dictionary wordDict.
+ * For each word w in the dictionary, it checks if the substring of s from index
+ * i to i + w.size() is equal to the word w. If it is, then the function sets
+ * dp[i] to dp[i + w.size()], which is true if the substring from index i + w.size()
+ * to the end of the string can be broken down into a sequence of words contained
+ * in the dictionary, and false otherwise.
+ *
+ * If dp[i] is true, then the function breaks out of the loop, since the substring
+ * from index i to the end of the string can be broken down into a sequence of
+ * words contained in the dictionary.
+ *
+ * Finally, the function returns dp[0], which is true if the entire string s can
+ * be broken down into a sequence of words contained in the dictionary, and false
+ * otherwise.
+ */
+bool wordBreak2(string s, vector<string>& wordDict) {
+    vector<bool> dp(s.size() + 1, false);
+    dp[s.size()] = true;
+
+    // Iterate over the string s from right to left
+    for (int i = s.size() - 1; i >= 0; i--) {
+        // Iterate over each word in the dictionary wordDict
+        for (const auto& w : wordDict) {
+            // Check if the substring of s from index i to i + w.size() is equal
+            // to the word w
+            if ((i + w.size()) <= s.size() && 
+                 s.substr(i, w.size()) == w) {
+                // If the substring is equal to the word w, then set dp[i] to
+                // dp[i + w.size()], which is true if the substring from index
+                // i + w.size() to the end of the string can be broken down into
+                // a sequence of words contained in the dictionary, and false
+                // otherwise.
+                dp[i] = dp[i + w.size()];
+            }
+            // If dp[i] is true, then the substring from index i to the end of
+            // the string can be broken down into a sequence of words contained
+            // in the dictionary. Therefore, break out of the loop.
+            if (dp[i]) {
+                break;
+            }
+        }
+    }
+
+    // Return dp[0], which is true if the entire string s can be broken down into
+    // a sequence of words contained in the dictionary, and false otherwise.
+    return dp[0];
+}
+
 int main(){
     string str;
     cin >> str;
@@ -65,5 +124,6 @@ int main(){
     }
 
     cout << wordBreak(str, dict);
+    cout << wordBreak2(str, dict);
     return 0;
 }

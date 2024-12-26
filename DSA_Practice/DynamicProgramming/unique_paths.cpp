@@ -26,13 +26,6 @@ using namespace std;
 int uniquePaths(int m, int n){
     vector<vector<int>> dp(m, vector<int>(n, 0));
 
-    // Initialize the dp array to 0
-    for(int i=0;i<m;++i){
-        for(int j=0;j<n;++j){
-            dp[i][j] = 0;
-        }
-    }
-
     // Set the first row and first column of dp to 1, since there is only one
     // way to reach each cell in the first row and first column.
     for(int i=0;i<m;++i){
