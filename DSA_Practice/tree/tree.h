@@ -1,3 +1,6 @@
+#ifndef TREE_H
+#define TREE_H
+
 #include<vector>
 #include<iostream>
 #include<queue>
@@ -18,7 +21,7 @@ class Tree{
     public:
         Node* root;
         Tree(){root = NULL;}
-        void create_tree();
+        void create_tree(); // Declaration only
         void pre_order(Node* p);
         void in_order(Node* p);
         void post_order(Node* p);
@@ -185,3 +188,4 @@ void Tree::left_view(Node *p){
     int max_level = 0;
     left_view_wrapper(p,1,&max_level);
 }
+#endif

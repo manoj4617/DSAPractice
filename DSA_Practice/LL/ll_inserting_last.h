@@ -1,3 +1,4 @@
+#include <cstddef>
 #include<iostream>
 
 using namespace std;
@@ -5,6 +6,9 @@ using namespace std;
 struct Node{
     int data;
     Node* next;
+    Node() : data(0), next(nullptr) {}
+    Node(int val) : data(val), next(nullptr){}
+    Node(int val, Node* nxt) : data(val) , next(nullptr) {}
 };
 
 Node* head = nullptr;
