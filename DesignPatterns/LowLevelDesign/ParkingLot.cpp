@@ -247,7 +247,7 @@ class ParkingTicket{
         bool status;
 
         unique_ptr<Vehicle> vehicle;
-        unique_ptr<Payment> paymnet;
+        unique_ptr<Payment> payment;
         unique_ptr<Entrance> entrance;
         unique_ptr<Exit> exitspot;
 };

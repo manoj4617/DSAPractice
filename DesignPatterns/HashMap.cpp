@@ -2,6 +2,8 @@
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <stdexcept>
+#include <string>
 #include <vector>
 #include <list>
 
@@ -43,6 +45,40 @@ class SeparateChaining : public CollissionResolutionStrategy<K, V> {
         }
         return nullptr;
     }
+};
+
+template<typename K, typename V>
+class OpenAddressing : public CollissionResolutionStrategy<K, V> {
+    public:
+        void insert(int index, const Entry<K,V>& entry, vector<list<Entry<K,V>>>& table){
+            int originalIndex = index;
+            while(table[index].size() > 0){
+                if(table[index].front().key == entry.key){
+                    table[index].front().value = entry.value;
+                    return;
+                }
+                index = (index + 1) % table.size();
+                if(index == originalIndex){
+                    throw std::overflow_error("Hashmap is full");
+                }
+            }
+            table[index].push_back(entry);
+        }
+
+        V* find(int index,const K& key, vector<list<Entry<K, V>>>& table){
+            int originalIndex = index;
+            while(table[index].size() > 0){
+                if(table[index].front().key == key){
+                    return &table[index].front().value;
+                }
+                index = (index + 1) % table.size();
+                if(index == originalIndex){
+                    break;
+                }
+            }
+
+            return nullptr;
+        }
 };
 
 template<typename K, typename V>
@@ -119,9 +155,9 @@ class HashMap {
     }
 
     public:
-    HashMap(float loadFactorThreshold = 0.7)
+    HashMap(float loadFactorThreshold = 0.7, unique_ptr<CollissionResolutionStrategy<K, V>> set_strategy = make_unique<SeparateChaining<K, V>>())
     :capacity(16), size(0), loadFactor(loadFactorThreshold),
-    strategy(make_unique<SeparateChaining<K, V>>())
+    strategy(move(set_strategy))
     {
         table.resize(capacity);
     }
@@ -157,7 +193,7 @@ class HashMap {
 };
 
 int main(){
-    HashMap<string, int> hashMap;
+    HashMap<string, int> hashMap(0.7, make_unique<OpenAddressing<string, int>>());
 
     hashMap.insert("apple", 1);
     hashMap.insert("orange", 2);
@@ -166,7 +202,9 @@ int main(){
     hashMap.insert("pineapple", 5);
     hashMap.insert("mushroom", 10);
     hashMap.insert("peach", 14);
+    hashMap.printHash();
 
+    hashMap.setCollissionStrategy(make_unique<SeparateChaining<string, int>>());
 
     cout << "HashMap contents: \n";
     hashMap.printHash();

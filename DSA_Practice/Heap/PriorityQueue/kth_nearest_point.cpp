@@ -33,39 +33,16 @@ vector<vector<int>> KthNearest(vector<vector<int>> points, int k)
     }
 
     // Create a priority queue to store the points and their distances from the origin
-    priority_queue<pair<float, pair<int, int>>, vector<pair<float, pair<int, int>>>, greater<pair<float, pair<int, int>>>> pq;
+    priority_queue<pair<float, pair<int, int>>, vector<pair<float, pair<int, int>>>> pq;
 
-    // Initialize the priority queue with the first k points from the points vector
-    int n = k <= points.size() ? k : points.size();
-    for (i = 0; i < n; i++)
-    {
-        // Calculate the distance between each point and the origin
-        float d = calculate_size(points[i][0], points[i][1]);
-        // Add the point and its distance to the priority queue
-        pq.push({d, {points[i][0], points[i][1]}});
-    }
-
-    // While the size of the priority queue is less than k and there are still points in the points vector
-    while (k--)
-    {
-        // Remove the first point from the points vector
-        points.erase(points.begin());
-        // If there are still points in the points vector
-        if (!points.empty())
+    for(auto& point : points){
+        pq.push({calculate_size(point[0], point[1]), {point[0], point[1]}});
+        // If the priority queue size exceeds k, remove the furthest point from the priority queue
+        if (pq.size() > k)
         {
-            // Calculate the distance between the first point and the origin
-            float dist = calculate_size(points[i][0], points[i][1]);
-            // If the distance is less than the distance of the closest point in the priority queue
-            if (dist < pq.top().first)
-            {
-                // Remove the closest point from the priority queue
-                pq.pop();
-                // Add the new point and its distance to the priority queue
-                pq.push({dist, {points[i][0], points[i][1]}});
-            }
+            pq.pop();
         }
     }
-
     // Create a vector to store the final result
     vector<vector<int>> res(pq.size());
     // While there are still points in the priority queue
