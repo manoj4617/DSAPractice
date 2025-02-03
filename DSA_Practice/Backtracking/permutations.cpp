@@ -3,14 +3,6 @@
 
 using namespace std;
 
-string swap_char(string str, int i, int j){
-    char temp = str[i];
-    str[i] = str[j];
-    str[j] = temp;
-
-    return str;
-}
-
 /**
  * This function generates all possible permutations of a given string.
  * 
@@ -29,10 +21,10 @@ void PermutateStr(string str, int currentIdx, vector<string>& res){
     // Recursively call the function for the swapped string and the next index.
     for(int i=currentIdx; i < str.size(); ++i){
         // Swap the current character with the character at index i.
-        string swapped = swap_char(str, currentIdx, i);
+        swap(str[i], str[currentIdx]);
         
         // Recursively call the function for the swapped string and the next index.
-        PermutateStr(swapped, currentIdx + 1, res);
+        PermutateStr(str, currentIdx + 1, res);
     }
 }
 

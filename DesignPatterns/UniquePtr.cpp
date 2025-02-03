@@ -59,16 +59,54 @@ class UniquePtr {
             return *m_pointer;
         }
         
+        /**
+         * @brief Overload of the member access operator ->.
+         * 
+         * This overload allows the UniquePtr instance to be used as a pointer to
+         * the managed resource. It returns a pointer to the managed object, which
+         * can be used to access its members.
+         * 
+         * The const qualifier ensures that this operator does not modify the state
+         * of the object.
+         * 
+         * The noexcept qualifier ensures that this operator does not throw any
+         * exceptions.
+         * 
+         * @return T* A pointer to the managed object.
+         */
         [[nodiscard]] constexpr T* operator->() const noexcept {
             return m_pointer;
         }
 
+        /**
+         * @brief Get the raw pointer to the managed resource.
+         * 
+         * This function returns the raw pointer to the managed resource, which
+         * can be used to access its members directly. Note that the pointer is
+         * returned as a const pointer, meaning that it cannot be modified.
+         * 
+         * @return T* The raw pointer to the managed resource.
+         */
         [[nodiscard]] constexpr T* get() const noexcept {
             return m_pointer;
         }
 
+        /**
+         * @brief Resets the managed pointer to a new pointer.
+         * 
+         * This function deletes the current managed object and replaces it with
+         * a new pointer. If no new pointer is provided, the managed pointer is set
+         * to nullptr.
+         * 
+         * The noexcept specifier indicates that this function does not throw exceptions.
+         * 
+         * @param pointer The new pointer to manage. Defaults to nullptr if not provided.
+         */
         constexpr void reset(T* pointer = nullptr) noexcept {
+            // Delete the current managed object to free the allocated memory.
             delete m_pointer;
+            
+            // Assign the new pointer to the managed pointer.
             m_pointer = pointer;
         }
 

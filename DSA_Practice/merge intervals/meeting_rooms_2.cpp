@@ -61,9 +61,61 @@ int minMeetingRooms(vector<vector<int>>& intervals){
     return min_heap.size();
 }
 
+/**
+ * This function takes in a vector of intervals, each represented as a vector of size 2.
+ * It returns the minimum number of meeting rooms required to accomodate all the meetings.
+ *
+ * The main idea of the algorithm is to first sort the start times and end times of all
+ * the intervals in two separate arrays. We then have two pointers, start and end, that
+ * will iterate through the start and end times arrays respectively.
+ *
+ * We iterate through the start times array. If the start time of the current meeting
+ * is less than the end time of the current meeting, then a new meeting has started, so
+ * we increment the count of the number of meetings currently in progress. If the start
+ * time of the current meeting is equal or greater than the end time of the current
+ * meeting, then a meeting has ended, so we decrement the count of the number of
+ * meetings currently in progress.
+ *
+ * At the end of the loop, the maximum count of the number of meetings currently in
+ * progress is the minimum number of meeting rooms required to accomodate all the
+ * meetings.
+ */
+int meeting_rooms(vector<vector<int>>& intervals){
+    // get the start and end times in a separate array;
+    int n = intervals.size();
+    vector<int> startTimes;
+    vector<int> endTimes;
+    for(auto& times : intervals){
+        startTimes.push_back(times[0]);
+        endTimes.push_back(times[1]);
+    }
+    sort(startTimes.begin(), startTimes.end());
+    sort(endTimes.begin(), endTimes.end());
+
+    int start = 0, end = 0;
+    int res = 0, count = 0;
+
+    while(start < n){
+        // of start time is less than the end time it means a meeting has started
+        // so increament the count
+        if(startTimes[start] < endTimes[end]){
+            start++;
+            count++;
+        }
+        // if the start time is equal or greater than end time
+        // it means a meeting has ended
+        else{
+            end++;
+            count--;
+        }
+        res = max(res,count);
+    }
+    return res;
+}
+
 int main(){
     vector<vector<int>> intervals = {{0, 30}, {5, 10}, {15, 20}};
-    cout << minMeetingRooms(intervals);
+    cout << meeting_rooms(intervals);
 
     return 0;
 }

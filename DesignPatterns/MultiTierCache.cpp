@@ -13,6 +13,9 @@ class LRUCache {
         int capacity;
         list<int> keys;
         unordered_map<int, pair<int, list<int>::iterator>> cache;
+        //              ^       ^                 ^
+        //              |       |                 |
+        //            <key  , value> <iterator to the key in list>
     public:
         LRUCache(int cap) : capacity(cap) {
             cache.clear();

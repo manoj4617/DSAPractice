@@ -40,7 +40,7 @@ int dp(int i, int k , int holding, vector<int>& prices, vector<vector<vector<int
     }
 
     /**
-     * Calculate the maximum profit that can be obtained by doing nothing
+     * Calculate the maximum profit that can be obtained by doinog nothing
      * and moving to the next time step.
      */
     int doNothing = dp(i + 1, k, holding, prices, memo);
