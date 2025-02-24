@@ -44,7 +44,7 @@ string ShortestCommonSubSeq(string &x, string &y, int m, int n){
             }
         }
     }
-    cout << "super sequence length: \n" << (m + n) - dp[m][n];
+    cout << "super sequence length: " << (m + n) - dp[m][n] << "\n";
     string res;
     int i = m, j = n;
     while(i > 0 && j > 0){

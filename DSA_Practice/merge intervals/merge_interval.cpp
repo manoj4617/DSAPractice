@@ -18,11 +18,7 @@ using namespace std;
 std::vector<std::vector<int>> MergeIntervals(std::vector<std::vector<int>> &intervals)
 {
         // Sort the intervals by their start times
-        sort(intervals.begin(),intervals.end(),
-        [](const vector<int>& a, const vector<int>& b)-> bool{
-            // Compare the start times of the two intervals
-            return a[0] < b[0];
-        });
+        sort(intervals.begin(),intervals.end());
 
         // Initialize the result vector with the first interval
         vector<vector<int>> result;

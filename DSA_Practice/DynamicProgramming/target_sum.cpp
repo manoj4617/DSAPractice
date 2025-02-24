@@ -24,7 +24,7 @@ int backtrack(int i, int total, vector<int>& nums, int target){
 }
 int target_sum(vector<int>& nums, int target){
     total_sum = accumulate(nums.begin(), nums.end(), 0);
-    dp = vector<vector<int>>(nums.size(), vector<int>(2 * total_sum + 1., INT_MIN));
+    dp = vector<vector<int>>(nums.size(), vector<int>(2 * total_sum + 1, INT_MIN));
     return backtrack(0,0,nums,target);
 }
 
