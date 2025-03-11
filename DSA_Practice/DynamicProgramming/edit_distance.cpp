@@ -54,9 +54,9 @@ int minDistance(string word1, string word2){
                 // the number of operations required to transform the first i-1
                 // characters of word1 into the first j-1 characters of word2
                 dp[i][j] = 1 + min({
-                    dp[i-1][j],
-                    dp[i][j-1],
-                    dp[i-1][j-1]
+                    dp[i-1][j],  // Delete - We're removing a character from string1, so we move one position back in string1 (i-1) but stay at the same position in string2
+                    dp[i][j-1],  //Insert - We're inserting a character into string1 to match string2, so we move one position back in string2 (j-1) but stay at the same position in string1
+                    dp[i-1][j-1] //  Replace - We're replacing a character in string1 with a character from string2, so we move back one position in both strings
                 });
             }
         }
