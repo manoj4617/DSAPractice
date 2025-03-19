@@ -87,7 +87,16 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& mat){
 
 int main(){
     vector<vector<int>> mat = {{0,0,0},{0,1,0},{1,1,1}};
+    cout << "Matrix before update: \n";
+    for(int i=0;i<mat.size();++i){
+        for(int j=0;j<mat[0].size();++j){
+            cout << mat[i][j] << " ";
+        }
+        cout << "\n";
+    }
     vector<vector<int>> res = updateMatrix(mat);
+    cout << "Matrix after update: \n";
+
     for(int i=0;i<res.size();++i){
         for(int j=0;j<res[0].size();++j){
             cout << res[i][j] << " ";

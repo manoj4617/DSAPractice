@@ -46,8 +46,18 @@ int SingleNonDuplicate(vector<int> nums)
     return nums[left];
 }
 
+int SingleNonDuplicate1(vector<int> nums)
+{
+    int result = 0;
+    for (int num : nums)
+    {
+        result ^= num;
+    }
+    return result;
+}
+
 int main(){
     vector<int> nums = {1, 1, 2, 3, 3, 4, 4, 8, 8};
-    cout << SingleNonDuplicate(nums) << endl;
+    cout << SingleNonDuplicate1(nums) << endl;
     return 0;
 }
