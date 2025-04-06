@@ -92,7 +92,7 @@ func PrintAllStudents() {
 func main() {
 	s := Student{}
 	AddStudent("Manoj", map[string]int{"Math": 90, "Science": 85})
-	AddStudent("Sumedha", map[string]int{"Math": 75, "Science": 80})
+	AddStudent("Sumedha", map[string]int{"Math": 57, "Science": 80})
 
 	// fmt.Println("Student with ID : 1", GetStudent(1))
 	if stu, found := GetStudent(2); found {

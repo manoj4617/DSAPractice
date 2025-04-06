@@ -61,7 +61,7 @@ string sortByCharFrequency(string& s) {
         int count = max_heap.top().first;
         
         // Get the character itself from the top of the heap
-        int c = max_heap.top().second;
+        char c = max_heap.top().second;
 
         // Remove the top element from the heap
         max_heap.pop();
